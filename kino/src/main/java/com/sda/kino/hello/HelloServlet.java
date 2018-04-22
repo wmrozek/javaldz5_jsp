@@ -12,12 +12,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Enumeration;
 
-
+@WebServlet(name = "HomeServlet", urlPatterns = "/hello_annotation")
 public class HelloServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletOutputStream out = response.getOutputStream();
+        out.println("ADRES URL: "+request.getRequestURI());
         out.println("Hello Servlet");
         out.println("Dzisiejsza data: "+ LocalDate.now());
         out.println(String.format("Jakis tekst powiazany ze zmiennymi %s, %d, %b", "ala", 29384, true));
