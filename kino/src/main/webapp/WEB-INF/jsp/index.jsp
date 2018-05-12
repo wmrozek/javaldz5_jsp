@@ -1,36 +1,51 @@
-<%@ page import="java.time.LocalDate" %>
-<%@ page import="com.sda.kino.RandomNumberGenerator" %>
-<%@ page import="java.util.Random" %><%--
-  Created by IntelliJ IDEA.
-  User: wmroz
-  Date: 28.04.2018
-  Time: 11:31
-  To change this template use File | Settings | File Templates.
---%>
+<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="en">
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Your file css -->
+    <link rel="stylesheet" href="css/cinema_style.css" />
+    <title>Kino Prosiaczek</title>
 </head>
 <body>
-    <%@ include file="header.jsp"%>
-    <%--<%--%>
-        <%--String userAgent = request.getHeader("User-Agent");--%>
-        <%--if (userAgent.contains("Edge")){--%>
-            <%--response.sendError(HttpServletResponse.SC_FORBIDDEN, "Edge is not supported");--%>
-            <%--return;--%>
-        <%--}--%>
-    <%--%>--%>
-    <p>Hello world</p>
-    <p>Dzisiaj jest: <%= LocalDate.now()%></p>
+<!--Pasek nawigacyjny na gorze strony-->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="cinema_main.html"><span class="cinema_name">(super nazwa)</span></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Strona Główna</a></li>
+            <li><a href="repertuar.html">Repertuar</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Zarejestruj się</a></li>
+            <li><a href="logowanie.html"><span class="glyphicon glyphicon-log-in"></span> Logowanie</a></li>
+        </ul>
+    </div>
+</nav>
+<!--________________________________________________________________-->
 
-    <p>Proponowane liczby lotto na dziś: <%= RandomNumberGenerator.generateLottoNumbers()%></p>
 
-    <p>Przeglądarka: <%= request.getHeader("User-Agent")%></p>
-    <!-- Komentarz HTML -->
-    <%-- Komentarz JSP --%>
+<!--główny kontener tresci-->
+<div class="container-fluid">
+    <div class="jumbotron banner">
+        <h1>Witaj w kinie <span class="cinema_name">(super nazwa)</span></h1>
+        <p>projekt SDA, polskie literki: żźłóąęść</p>
+    </div>
 
-    <h1>Twój szczęśliwy numer na dziś: ${happyNumber}</h1>
+
+    <p>This is some text.</p>
+    <p>This is another text.</p>
+
+
+
+
+</div>
+
 
 </body>
 </html>

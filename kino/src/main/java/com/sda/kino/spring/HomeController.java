@@ -15,7 +15,7 @@ public class HomeController {
             String filter){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("happyNumber", RandomNumberGenerator.drawHappyNumber());
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("examples/index");
         return modelAndView;
     }
 }

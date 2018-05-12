@@ -14,7 +14,7 @@ public class ImionaController {
         List<String> imiona = Imiona.dajImionaNaPodstawieFiltra(filter);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("imiona", imiona);
-        modelAndView.setViewName("imiona");
+        modelAndView.setViewName("examples/imiona");
         return modelAndView;
     }
 
