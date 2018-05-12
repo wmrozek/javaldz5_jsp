@@ -13,6 +13,7 @@
     <title>Title</title>
 </head>
 <body>
+    <%@ include file="header.jsp"%>
     <%--<%--%>
         <%--String userAgent = request.getHeader("User-Agent");--%>
         <%--if (userAgent.contains("Edge")){--%>
