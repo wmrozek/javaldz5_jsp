@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.sda.kino.project.registration.dto.ErrorMessages" %>
 <html lang="en">
 
 <head>
@@ -16,7 +17,7 @@
 </head>
 
 <body>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -36,17 +37,28 @@
 
 
 <h1 align="center">Rejestracja </h1>
+<c:if test="${errorMessage ne null}">
+    <c:choose>
+        <c:when test="${errorMessage eq ErrorMessages.VALIDATION_ERROR}">
+            <span>Podczas rejestracji wystąpiły błędy walidacji</span>
+        </c:when>
+        <c:otherwise>
+            <span>Wystąpił nieoczekiwany błąd</span>
+        </c:otherwise>
+    </c:choose>
+</c:if>
 
-<form action="/register" method="post">
+
+<form name="registerForm" action="/register" method="post">
     <div class="container-fluid" id="loginContainer">
         <h2>Podaj swoje dane</h2>
 
         <div class="input-group">
-            <input type="text" class="form-control" name="imie" placeholder="Imię">
+            <input type="text" class="form-control" name="firstName" placeholder="Imię">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
         </div>
         <div class="input-group">
-            <input type="text" class="form-control" name="nazwisko" placeholder="Nazwisko">
+            <input type="text" class="form-control" name="lastName" placeholder="Nazwisko">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
         </div>
         <div class="input-group">
@@ -62,7 +74,7 @@
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
         </div>
         <div class="input-group">
-            <input type="password" class="form-control" name="repeated-password" placeholder="Powtórz Hasło">
+            <input type="password" class="form-control" name="repeatedPassword" placeholder="Powtórz Hasło">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
         </div>
         <button id="registerbutton" type="submit">Zarejestruj</button>
