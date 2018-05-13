@@ -11,35 +11,14 @@
     <title>Kino Prosiaczek</title>
 </head>
 <body>
-<!--Pasek nawigacyjny na gorze strony-->
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="cinema_main.html"><span class="cinema_name">(super nazwa)</span></a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Strona Główna</a></li>
-            <li><a href="repertuar.html">Repertuar</a></li>
-            <li><a href="kontakt.html">Kontakt</a></li>
-        </ul>
-        <c:choose>
-            <c:when test="${USERNAME ne null}">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>Witaj, ${USERNAME}</a></li>
-                </ul>
-            </c:when>
-            <c:otherwise>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Zarejestruj się</a></li>
-                    <li><a href="logowanie.html"><span class="glyphicon glyphicon-log-in"></span> Logowanie</a></li>
-                </ul>
-            </c:otherwise>
-        </c:choose>
-
-    </div>
-</nav>
-<!--________________________________________________________________-->
-
+<c:choose>
+    <c:when test="${USERNAME eq null}">
+        <%@ include file="navbar_not_logged.jsp" %>
+    </c:when>
+    <c:otherwise>
+        <%@ include file="navbar_logged_user.jsp" %>
+    </c:otherwise>
+</c:choose>
 
 <!--główny kontener tresci-->
 <div class="container-fluid">

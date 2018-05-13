@@ -18,22 +18,14 @@
 
 <body>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="cinema_main.html"><span class="cinema_name">(super nazwa)</span></a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Strona Główna</a></li>
-            <li><a href="repertuar.html">Repertuar</a></li>
-            <li><a href="kontakt.html">Kontakt</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="rejestracja.html"><span class="glyphicon glyphicon-user"></span> Zarejestruj się</a></li>
-            <li><a href="logowanie.html"><span class="glyphicon glyphicon-log-in"></span> Logowanie</a></li>
-        </ul>
-    </div>
-</nav>
+<c:choose>
+    <c:when test="${USERNAME eq null}">
+        <%@ include file="navbar_not_logged.jsp" %>
+    </c:when>
+    <c:otherwise>
+        <%@ include file="navbar_logged_user.jsp" %>
+    </c:otherwise>
+</c:choose>
 
 
 <h1 align="center">Rejestracja </h1>
