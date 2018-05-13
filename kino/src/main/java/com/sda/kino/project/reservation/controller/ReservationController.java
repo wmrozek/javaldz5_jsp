@@ -3,6 +3,7 @@ package com.sda.kino.project.reservation.controller;
 import com.sda.kino.project.dto.ErrorMessages;
 import com.sda.kino.project.dto.UserDto;
 import com.sda.kino.project.login.service.LoginService;
+import com.sda.kino.project.reservation.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -20,8 +21,8 @@ import java.io.IOException;
 @Controller
 public class ReservationController {
 
-//    @Autowired
-//    private LoginService loginService;
+    @Autowired
+    private ReservationService reservationService;
 
     @GetMapping(path = "/repertoire")
     public ModelAndView repertoirePage(@RequestParam(name = "date", required = false) String date,
