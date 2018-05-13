@@ -27,43 +27,16 @@ public class ReservationController {
     public ModelAndView repertoirePage(@RequestParam(name = "date", required = false) String date,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
-                                        HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("repertoire");
 
-        if (date != null){
+        if (date != null) {
             modelAndView.addObject("datePicked", date);
         }
-        modelAndView.setViewName("repertoire");
         return modelAndView;
     }
 
-    @PostMapping(path = "/repertoire")
-    public String selectDate(
-            @RequestParam(name = "date") String date,
-            HttpServletRequest request,
-            HttpServletResponse response) {
 
-
-        return "redirect:/repertoire?date=" + date;
-    }
-
-    private void createSession(UserDto userDto, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.setAttribute("userLogin", userDto.getLogin());
-        session.setAttribute("userFirstName", userDto.getFirstName());
-        session.setAttribute("userLastName", userDto.getLastName());
-    }
-
-    private void addCookie(HttpServletResponse response, UserDto userDto) {
-        Cookie cookie = new Cookie("NOT_LOGOUT", userDto.getLogin());
-        response.addCookie(cookie);
-    }
-
-    private boolean validateForm(String login, String password) {
-        if (StringUtils.isEmpty(login) || StringUtils.isEmpty(password)) {
-            return false;
-        }
-        return true;
-    }
 }
