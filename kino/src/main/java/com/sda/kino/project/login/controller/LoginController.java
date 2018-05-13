@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -47,7 +48,8 @@ public class LoginController {
     public String login(
            @RequestParam(name = "login") String login,
            @RequestParam(name = "password") String password,
-           HttpServletRequest request
+           HttpServletRequest request,
+           HttpServletResponse response
     ){
         if (!validateForm(login, password)){
             return "redirect:/login?message=VALIDATION_ERROR";
@@ -57,6 +59,7 @@ public class LoginController {
             return "redirect:/login?message=VALIDATION_ERROR";
         }
         createSession(userDto, request);
+        addCookie(response, userDto);
         return "redirect:/";
     }
 
@@ -65,6 +68,11 @@ public class LoginController {
         session.setAttribute("userLogin", userDto.getLogin());
         session.setAttribute("userFirstName", userDto.getFirstName());
         session.setAttribute("userLastName", userDto.getLastName());
+    }
+
+    private void addCookie(HttpServletResponse response, UserDto userDto) {
+        Cookie cookie = new Cookie("NOT_LOGOUT", userDto.getLogin());
+        response.addCookie(cookie);
     }
 
     private boolean validateForm(String login, String password){
