@@ -16,7 +16,7 @@
             <li class="active"><a href="/">Strona Główna</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/account"><span class="glyphicon glyphicon-user"></span> <strong> ${USER.login}</strong>
+            <li><a href="/account"><span class="glyphicon glyphicon-user"></span> <strong> ${USERNAME}</strong>
             </a></li>
         </ul>
     </div>
