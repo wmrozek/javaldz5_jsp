@@ -1,7 +1,7 @@
 package com.sda.kino.project.registration.controller;
 
-import com.sda.kino.project.registration.dto.ErrorMessages;
-import com.sda.kino.project.registration.dto.UserDto;
+import com.sda.kino.project.dto.ErrorMessages;
+import com.sda.kino.project.dto.UserDto;
 import com.sda.kino.project.registration.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class RegistrationController {

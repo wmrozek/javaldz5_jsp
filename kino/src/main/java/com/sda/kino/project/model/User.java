@@ -1,4 +1,4 @@
-package com.sda.kino.project.registration.model;
+package com.sda.kino.project.model;
 
 public class User {
     private Long id;

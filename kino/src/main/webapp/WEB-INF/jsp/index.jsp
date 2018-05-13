@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,10 +22,20 @@
             <li><a href="repertuar.html">Repertuar</a></li>
             <li><a href="kontakt.html">Kontakt</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Zarejestruj się</a></li>
-            <li><a href="logowanie.html"><span class="glyphicon glyphicon-log-in"></span> Logowanie</a></li>
-        </ul>
+        <c:choose>
+            <c:when test="${USERNAME ne null}">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>Witaj, ${USERNAME}</a></li>
+                </ul>
+            </c:when>
+            <c:otherwise>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Zarejestruj się</a></li>
+                    <li><a href="logowanie.html"><span class="glyphicon glyphicon-log-in"></span> Logowanie</a></li>
+                </ul>
+            </c:otherwise>
+        </c:choose>
+
     </div>
 </nav>
 <!--________________________________________________________________-->

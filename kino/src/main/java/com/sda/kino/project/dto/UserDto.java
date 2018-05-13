@@ -1,4 +1,4 @@
-package com.sda.kino.project.registration.dto;
+package com.sda.kino.project.dto;
 
 import org.springframework.util.StringUtils;
 

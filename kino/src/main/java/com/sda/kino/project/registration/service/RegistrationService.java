@@ -1,8 +1,8 @@
 package com.sda.kino.project.registration.service;
 
-import com.sda.kino.project.registration.dto.ErrorMessages;
-import com.sda.kino.project.registration.dto.UserDto;
-import com.sda.kino.project.registration.model.User;
+import com.sda.kino.project.dto.ErrorMessages;
+import com.sda.kino.project.dto.UserDto;
+import com.sda.kino.project.model.User;
 import com.sda.kino.project.registration.repository.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
