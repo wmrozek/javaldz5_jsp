@@ -1,5 +1,5 @@
 package com.sda.kino.project.model;
 
-public enum FilmGenre {
+public enum MovieGenre {
     ACTION, ADVENTURE, COMEDY, CRIME, DRAMA, FANTASY, HISTORICAL
 }
