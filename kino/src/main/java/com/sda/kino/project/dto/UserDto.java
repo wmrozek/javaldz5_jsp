@@ -9,6 +9,15 @@ public class UserDto {
     private String email;
     private String password;
     private String repeatedPassword;
+    private String registeredDate;
+
+    public String getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(String registeredDate) {
+        this.registeredDate = registeredDate;
+    }
 
     public boolean validateForm() {
         if (!isFieldValid(firstName)) {

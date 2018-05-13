@@ -59,7 +59,7 @@ public class LoginController {
             return "redirect:/login?message=VALIDATION_ERROR";
         }
         createSession(userDto, request);
-        addCookie(response, userDto);
+//        addCookie(response, userDto);
         return "redirect:/";
     }
 

@@ -7,6 +7,7 @@ public class User {
     private String login;
     private String email;
     private String password;
+    private String registeredDate;
 
     public Long getId() {
         return id;
@@ -14,6 +15,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(String registeredDate) {
+        this.registeredDate = registeredDate;
     }
 
     public String getFirstName() {
