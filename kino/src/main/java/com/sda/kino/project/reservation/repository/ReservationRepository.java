@@ -3,8 +3,8 @@ package com.sda.kino.project.reservation.repository;
 import com.sda.kino.project.model.Movie;
 import com.sda.kino.project.model.MovieGenre;
 import com.sda.kino.project.model.Seance;
+import com.sda.kino.project.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -12,59 +12,53 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.List;
 
 @Repository
 public class ReservationRepository {
-    private static final String GET_MOVIES_BY_DATE =
-            "SELECT * FROM movies m WHERE id IN (:ids)";
 
-    private static final String GET_SEANCES_BY_DATE = "SELECT * FROM seances WHERE data_start = ?;";
+    private static final String GET_USER_BY_USERID =
+            "SELECT * FROM users WHERE id=:userId";
 
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private static final String GET_SEANCE_BY_ID =
+            "SELECT * FROM seances WHERE id=:id";
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public List<Movie> getMoviesByIds(Set<Integer> ids) {
+
+    public User getUserByUserId(int userId) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("ids", ids);
-        List<Movie> movies = namedParameterJdbcTemplate.query(GET_MOVIES_BY_DATE, parameters, new RowMapper<Movie>() {
+        parameters.addValue("userId", userId);
+        return namedParameterJdbcTemplate.query(GET_USER_BY_USERID, parameters, new RowMapper<User>() {
             @Override
-            public Movie mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Movie movie = new Movie();
-                movie.setId(rs.getInt("id"));
-                movie.setTitle(rs.getString("title"));
-                movie.setMovieGenre(MovieGenre.valueOf(rs.getString("category").toUpperCase()));
-                movie.setMovieDescription(rs.getString("description"));
-                movie.setActors(rs.getString("movie_cast"));
-                movie.setYearOfMovieProduction(Integer.toString(rs.getInt("date_production")));
-                return movie;
+            public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+                User user = new User();
+                user.setId(rs.getLong("id"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setLogin(rs.getString("login"));
+                user.setEmail(rs.getString("email"));
+                return user;
             }
-        });
-        return movies;
+        }).get(0);
     }
 
-
-    public List<Seance> getSeancesByDate(String date) {
-
-        System.out.println(date);
-        return jdbcTemplate.query(GET_SEANCES_BY_DATE, new String[]{date}, new RowMapper<Seance>() {
+    public Seance getSeanceById(int seanceId) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("id", seanceId);
+        return namedParameterJdbcTemplate.query(GET_SEANCE_BY_ID, parameters, new RowMapper<Seance>() {
             @Override
             public Seance mapRow(ResultSet rs, int rowNum) throws SQLException {
-
                 Seance seance = new Seance();
                 seance.setId(rs.getInt("id"));
-                seance.setMovieId(rs.getInt("id_movie"));
                 seance.setDataStart(rs.getString("data_start"));
                 seance.setDataStartTime(rs.getString("data_start_time"));
                 seance.setPrice(rs.getDouble("price"));
                 return seance;
             }
-        });
+        }).get(0);
+
+
     }
-
-
 }

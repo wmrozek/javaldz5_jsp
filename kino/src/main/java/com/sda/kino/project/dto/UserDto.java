@@ -3,6 +3,7 @@ package com.sda.kino.project.dto;
 import org.springframework.util.StringUtils;
 
 public class UserDto {
+    private int userId;
     private String firstName;
     private String lastName;
     private String login;
@@ -43,6 +44,15 @@ public class UserDto {
             return false;
         }
         return true;
+    }
+
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
