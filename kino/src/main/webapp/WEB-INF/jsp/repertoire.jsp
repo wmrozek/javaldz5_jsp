@@ -9,12 +9,7 @@
 <html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
-    <meta charset="UTF-8">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Your file css -->
-    <link rel="stylesheet" href="css/cinema_style.css"/>
+<%@ include file="head.jsp"%>
     <title>Repertuar</title>
     <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -88,7 +83,10 @@
                                data-title="${movie.title}"
                                data-actors="${movie.actors}"
                                data-description="${movie.movieDescription}"
-                               data-start="${seance.getDataStartTime()}">${seance.getDataStartTime()}</a></td>
+                               data-start="${seance.getDataStartTime()}"
+                               data-date="${seance.getDataStart()}"
+                               data-seanceid="${seance.getId()}"
+                               data-price="${seance.getPrice()}">${seance.getDataStartTime()}</a></td>
                     </c:forEach>
                 </tr>
 

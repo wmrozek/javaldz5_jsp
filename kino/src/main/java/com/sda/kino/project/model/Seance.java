@@ -17,5 +17,11 @@ public class Seance {
     private double price;
     private Integer movieId;
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
