@@ -5,7 +5,7 @@
 <body>
 <div id="extraLayer">
     <c:choose>
-        <c:when test="${USER eq null}">
+        <c:when test="${USERNAME eq null}">
             <%@ include file="navbar_not_logged.jsp" %>
         </c:when>
         <c:otherwise>
