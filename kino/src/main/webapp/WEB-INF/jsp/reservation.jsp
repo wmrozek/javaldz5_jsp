@@ -20,7 +20,6 @@
 </c:choose>
 <%@ include file="reserve_modal.jsp" %>
 
-<div id="extraLayer">
 
 <form method="post" action="/makeReservation">
 
@@ -33,12 +32,13 @@
         </div>
 
         <div class="input-group">
-            <input id="title" type="password" class="form-control" name="title" placeholder="${Reservation.movieTitle}">
-            <input id="description" type="password" class="form-control" name="description" placeholder="${Reservation.movieDescription}">
-            <input id="year" type="password" class="form-control" name="description" placeholder="${Reservation.yearOfMovieProduction}">
+            <input id="title" type="text" class="form-control" name="title" placeholder="${Reservation.movieTitle}" readonly>
+            <input id="description" type="text" class="form-control" name="description" placeholder="${Reservation.movieDescription}" readonly>
+            <input id="year" type="text" class="form-control" name="description" placeholder="${Reservation.yearOfMovieProduction}" readonly>
         </div>
 
         <div class="input-group">
+            Data:
             <input id="seancedate" type="text" class="form-control" name="loseancedategin" placeholder="${Reservation.seanceDataStart}" readonly>
             <input id="seancetime" type="text" class="form-control" name="seancetime" placeholder="${Reservation.seanceDataStartTime}" readonly>
             <input id="seanceprice" type="text" class="form-control" name="seanceprice" placeholder="${Reservation.seancePrice}" readonly>
@@ -57,7 +57,6 @@
         <button id="loginbutton" type="submit">REZERWUJ</button>
     </div>
 </form>
-</div>
 
 </body>
 </html>

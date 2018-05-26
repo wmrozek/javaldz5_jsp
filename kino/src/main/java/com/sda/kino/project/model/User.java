@@ -1,7 +1,7 @@
 package com.sda.kino.project.model;
 
 public class User {
-    private Long id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String login;
@@ -9,11 +9,11 @@ public class User {
     private String password;
     private String registeredDate;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

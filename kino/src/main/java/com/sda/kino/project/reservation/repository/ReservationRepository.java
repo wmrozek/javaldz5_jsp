@@ -34,7 +34,7 @@ public class ReservationRepository {
             @Override
             public User mapRow(ResultSet rs, int rowNum) throws SQLException {
                 User user = new User();
-                user.setId(rs.getLong("id"));
+                user.setId(rs.getInt("id"));
                 user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
                 user.setLogin(rs.getString("login"));
@@ -55,6 +55,7 @@ public class ReservationRepository {
                 seance.setDataStart(rs.getString("data_start"));
                 seance.setDataStartTime(rs.getString("data_start_time"));
                 seance.setPrice(rs.getDouble("price"));
+                seance.setMovieId(rs.getInt("id_movie"));
                 return seance;
             }
         }).get(0);

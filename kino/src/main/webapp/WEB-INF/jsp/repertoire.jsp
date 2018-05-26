@@ -62,7 +62,7 @@
     <thead>
     <tr>
         <th scope="col">Tytuł</th>
-        <th scope="col">Seansy</th>
+        <th scope="col">Seanse</th>
     </tr>
     </thead>
     <tbody>
@@ -73,11 +73,6 @@
                 <tr>
                     <th scope="row">${movie.getTitle()}</th>
                     <c:forEach items="${movie.getListOfSeance()}" var="seance">
-
-                        <%--<td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" >${seance.getDataStartTime()}</button></td>--%>
-                        <%--<td><a href="#myModal" data-toggle="modal" movie-title="${movie.title}" movie-seance="${seance.getDataStartTime()}">${seance.getDataStartTime()}</a></td>--%>
-
-                        <%--<td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" ></button></td>--%>
                         <td><a class="btn btn-primary announce"
                                data-toggle="modal"
                                data-title="${movie.title}"

@@ -30,7 +30,7 @@
             <div class="modal-footer">
                 <h4 id="moviePrice"></h4>
 
-                <form onclick="/index">
+                <form action="/reservation" method="get">
                     <input type="hidden" name="seanceId" id="inputId" value="1"/>
                     <button class="btn btn-default" type="submit" id="loginbutton">Rezerwuj</button>
                 </form>

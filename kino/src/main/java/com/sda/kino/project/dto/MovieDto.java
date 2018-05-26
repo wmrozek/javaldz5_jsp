@@ -2,6 +2,17 @@ package com.sda.kino.project.dto;
 
 public class MovieDto {
 
+    private Integer id;
+
+    public Integer getId() {
+
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     private String title;
     private String category;
     private String dateProduction;

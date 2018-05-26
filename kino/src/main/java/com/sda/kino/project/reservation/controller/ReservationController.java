@@ -1,8 +1,8 @@
 package com.sda.kino.project.reservation.controller;
 
 
-import com.sda.kino.project.dto.MovieDto;
 import com.sda.kino.project.dto.UserDto;
+import com.sda.kino.project.reservation.dto.MovieDto;
 import com.sda.kino.project.reservation.dto.ReservationDto;
 import com.sda.kino.project.reservation.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,7 @@ public class ReservationController {
 
         HttpSession session = request.getSession();
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("USERNAME", session.getAttribute("userFirstName") + " " + session.getAttribute("userLastName"));
         modelAndView.setViewName("reservation");
 
         if (message != null) {
@@ -44,7 +45,7 @@ public class ReservationController {
 //            modelAndView.addObject("userDto", userDto);
 //
 //        reservationService.getSeanceDtoBySeanceId(seanceId);
-
+            System.out.println("userid\t" +(int) session.getAttribute("userId"));
             ReservationDto reservationDtoBySeanceId = reservationService.getReservationDtoBySeanceId(seanceId, (int) session.getAttribute("userId"),
                     (List<MovieDto>) session.getAttribute("listOfMovies"));
             modelAndView.addObject("Reservation", reservationDtoBySeanceId);

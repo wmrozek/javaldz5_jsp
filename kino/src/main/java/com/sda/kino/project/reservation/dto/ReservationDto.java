@@ -9,7 +9,7 @@ public class ReservationDto {
     private String seanceDataStartTime;
     private double seancePrice;
     private Integer movieId;
-    private Long userId;
+    private Integer userId;
     private String userFirstName;
     private String userLastName;
     private String userLogin;
@@ -58,11 +58,11 @@ public class ReservationDto {
         this.movieId = movieId;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

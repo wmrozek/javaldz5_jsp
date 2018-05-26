@@ -1,9 +1,10 @@
 package com.sda.kino.project.reservation.service;
 
-import com.sda.kino.project.dto.MovieDto;
 import com.sda.kino.project.dto.UserDto;
+import com.sda.kino.project.model.Movie;
 import com.sda.kino.project.model.Seance;
 import com.sda.kino.project.model.User;
+import com.sda.kino.project.reservation.dto.MovieDto;
 import com.sda.kino.project.reservation.dto.ReservationDto;
 import com.sda.kino.project.reservation.dto.SeanceDto;
 import com.sda.kino.project.reservation.repository.ReservationRepository;
@@ -40,10 +41,10 @@ public class ReservationService {
         reservationDto.setUserLogin(user.getLogin());
         reservationDto.setUserEmail(user.getEmail());
 
-        MovieDto movieDto = listOfMovies.get(seance.getMovieId());
+        MovieDto movieDto = listOfMovies.stream().filter(movie -> movie.getId() == seance.getMovieId()).findFirst().get();
         reservationDto.setMovieTitle(movieDto.getTitle());
-        reservationDto.setMovieDescription(movieDto.getDescription());
-        reservationDto.setYearOfMovieProduction(movieDto.getDateProduction());
+        reservationDto.setMovieDescription(movieDto.getMovieDescription());
+        reservationDto.setYearOfMovieProduction(movieDto.getYearOfMovieProduction());
 
         return reservationDto;
 

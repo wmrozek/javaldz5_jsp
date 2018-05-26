@@ -23,6 +23,7 @@ public class LoginService {
             return null;
         }
         UserDto userDto = new UserDto();
+        userDto.setUserId(user.getId());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setLogin(user.getLogin());

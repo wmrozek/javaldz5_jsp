@@ -27,6 +27,7 @@ public class RepertoireController {
         HttpSession session = request.getSession();
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("USERNAME", session.getAttribute("userFirstName") + " " + session.getAttribute("userLastName"));
         modelAndView.setViewName("repertoire");
 
         if (date != null) {

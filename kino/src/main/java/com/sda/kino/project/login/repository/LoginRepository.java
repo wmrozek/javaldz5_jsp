@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public class LoginRepository {
 
-    private static final String GET_USER = "SELECT first_name, last_name, login FROM users WHERE login = ? AND password = ?";
+    private static final String GET_USER = "SELECT id, first_name, last_name, login FROM users WHERE login = ? AND password = ?";
 
     @Autowired
     private JdbcTemplate template;
@@ -23,6 +23,7 @@ public class LoginRepository {
             @Override
             public User mapRow(ResultSet resultSet, int i) throws SQLException {
                 User user = new User();
+                user.setId(resultSet.getInt("id"));
                 user.setFirstName(resultSet.getString("first_name"));
                 user.setLastName(resultSet.getString("last_name"));
                 user.setLogin(resultSet.getString("login"));
