@@ -1,16 +1,16 @@
 package com.sda.kino.project.reservation.service;
 
-import com.sda.kino.project.model.Movie;
+import com.sda.kino.project.dto.MovieDto;
+import com.sda.kino.project.dto.UserDto;
 import com.sda.kino.project.model.Seance;
-import com.sda.kino.project.reservation.dto.MovieDto;
+import com.sda.kino.project.model.User;
+import com.sda.kino.project.reservation.dto.ReservationDto;
+import com.sda.kino.project.reservation.dto.SeanceDto;
 import com.sda.kino.project.reservation.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ReservationService {
@@ -18,45 +18,34 @@ public class ReservationService {
     @Autowired
     private ReservationRepository repository;
 
-    public List<MovieDto> getMoviesDtosForDate(String date){
-        List<Seance> seanceList = repository.getSeancesByDate(date);
-        Map<Integer, List<Seance>> mapMoviesSeances = createMapMovieSeances(seanceList);
+    public ReservationDto getReservationDtoBySeanceId(int seanceId, int userId, List<MovieDto> listOfMovies) {
+        User userByUserId = repository.getUserByUserId(userId);
+        Seance seanceById = repository.getSeanceById(seanceId);
 
-        List<Movie> movies = repository.getMoviesByIds(mapMoviesSeances.keySet());
+        return createReservationDtoFromUserAndSeance(userByUserId, seanceById, listOfMovies);
 
-        return  createMovieDtos(movies, mapMoviesSeances);
     }
 
-    private List<MovieDto> createMovieDtos(List<Movie> moviesForDate, Map<Integer, List<Seance>> mapMoviesSeances) {
-        List<MovieDto> moviesDtos = new ArrayList<>();
-//        DESIGN PATTERN: BUILDER
-        for (Movie movie : moviesForDate) {
-            moviesDtos.add( MovieDto.builder()
-                    .id(movie.getId())
-                    .title(movie.getTitle())
-                    .movieGenre(movie.getMovieGenre())
-                    .movieDescription(movie.getMovieDescription())
-                    .yearOfMovieProduction(movie.getYearOfMovieProduction())
-                    .listOfSeance(mapMoviesSeances.get(movie.getId()))
-                    .actors(movie.getActors())
-                    .build()
-            );
-        }
-        return moviesDtos;
-    }
+    private ReservationDto createReservationDtoFromUserAndSeance(User user, Seance seance, List<MovieDto> listOfMovies) {
 
+        ReservationDto reservationDto = new ReservationDto();
+        reservationDto.setSeanceId(seance.getId());
+        reservationDto.setSeanceDataStart(seance.getDataStart());
+        reservationDto.setSeanceDataStartTime(seance.getDataStartTime());
+        reservationDto.setSeancePrice(seance.getPrice());
+        reservationDto.setMovieId(seance.getMovieId());
+        reservationDto.setUserId(user.getId());
+        reservationDto.setUserFirstName(user.getFirstName());
+        reservationDto.setUserLastName(user.getLastName());
+        reservationDto.setUserLogin(user.getLogin());
+        reservationDto.setUserEmail(user.getEmail());
 
-    private Map<Integer, List<Seance>> createMapMovieSeances(List<Seance> seances) {
-        Map<Integer, List<Seance>> mapMovieSeances = new HashMap<>();
-        for (Seance seance : seances) {
-            if (mapMovieSeances.containsKey(seance.getMovieId())) {
-                mapMovieSeances.get(seance.getMovieId()).add(seance);
-            } else {
-                List<Seance> seanceList = new ArrayList<>();
-                seanceList.add(seance);
-                mapMovieSeances.put(seance.getMovieId(), seanceList);
-            }
-        }
-        return mapMovieSeances;
+        MovieDto movieDto = listOfMovies.get(seance.getMovieId());
+        reservationDto.setMovieTitle(movieDto.getTitle());
+        reservationDto.setMovieDescription(movieDto.getDescription());
+        reservationDto.setYearOfMovieProduction(movieDto.getDateProduction());
+
+        return reservationDto;
+
     }
 }

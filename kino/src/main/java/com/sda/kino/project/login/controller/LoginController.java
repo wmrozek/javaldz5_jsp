@@ -68,6 +68,7 @@ public class LoginController {
         session.setAttribute("userLogin", userDto.getLogin());
         session.setAttribute("userFirstName", userDto.getFirstName());
         session.setAttribute("userLastName", userDto.getLastName());
+        session.setAttribute("userId", userDto.getUserId());
     }
 
     private void addCookie(HttpServletResponse response, UserDto userDto) {
