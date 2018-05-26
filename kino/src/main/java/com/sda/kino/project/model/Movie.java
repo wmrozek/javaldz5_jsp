@@ -17,6 +17,5 @@ public class Movie {
     private String movieDescription;
     private String yearOfMovieProduction;
     private String actors;
-    private List<Seance> listOfSeance;
 }
 

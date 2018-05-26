@@ -22,13 +22,12 @@ public class ReservationService {
         List<Seance> seanceList = repository.getSeancesByDate(date);
         Map<Integer, List<Seance>> mapMoviesSeances = createMapMovieSeances(seanceList);
 
-        List<Movie> moviesForDate = repository.getMoviesByDate(date);
-        connectMoviesWithSeances(moviesForDate, mapMoviesSeances);
+        List<Movie> movies = repository.getMoviesByIds(mapMoviesSeances.keySet());
 
-        return  createMovieDtos(moviesForDate);
+        return  createMovieDtos(movies, mapMoviesSeances);
     }
 
-    private List<MovieDto> createMovieDtos(List<Movie> moviesForDate) {
+    private List<MovieDto> createMovieDtos(List<Movie> moviesForDate, Map<Integer, List<Seance>> mapMoviesSeances) {
         List<MovieDto> moviesDtos = new ArrayList<>();
 //        DESIGN PATTERN: BUILDER
         for (Movie movie : moviesForDate) {
@@ -38,7 +37,7 @@ public class ReservationService {
                     .movieGenre(movie.getMovieGenre())
                     .movieDescription(movie.getMovieDescription())
                     .yearOfMovieProduction(movie.getYearOfMovieProduction())
-                    .listOfSeance(movie.getListOfSeance())
+                    .listOfSeance(mapMoviesSeances.get(movie.getId()))
                     .actors(movie.getActors())
                     .build()
             );
@@ -46,18 +45,12 @@ public class ReservationService {
         return moviesDtos;
     }
 
-    private void connectMoviesWithSeances(List<Movie> moviesForDate, Map<Integer, List<Seance>> mapMoviesSeances) {
-        for (Movie movie :  moviesForDate) {
-            movie.setListOfSeance(mapMoviesSeances.get(movie.getId()));
-        }
-    }
 
     private Map<Integer, List<Seance>> createMapMovieSeances(List<Seance> seances) {
         Map<Integer, List<Seance>> mapMovieSeances = new HashMap<>();
         for (Seance seance : seances) {
             if (mapMovieSeances.containsKey(seance.getMovieId())) {
                 mapMovieSeances.get(seance.getMovieId()).add(seance);
-                mapMovieSeances.put(seance.getMovieId(), mapMovieSeances.get(seance.getMovieId()));
             } else {
                 List<Seance> seanceList = new ArrayList<>();
                 seanceList.add(seance);

@@ -6,20 +6,18 @@ import com.sda.kino.project.model.Seance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class ReservationRepository {
     private static final String GET_MOVIES_BY_DATE =
-            "SELECT m.*, array_agg(s.id) FROM movies m JOIN seances s ON s.id_movie = m.id WHERE s.data_start = ? " +
-                    "GROUP BY m.id, m.title, m.category, m.time_duration, m.description, m.movie_cast, m.date_production";
+            "SELECT * FROM movies m WHERE id IN (:ids)";
 
     private static final String GET_SEANCES_BY_DATE = "SELECT * FROM seances WHERE data_start = ?;";
 
@@ -27,9 +25,13 @@ public class ReservationRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Movie> getMoviesByDate(String date) {
-        System.out.println(date);
-        List<Movie> movies = jdbcTemplate.query(GET_MOVIES_BY_DATE, new String[]{date}, new RowMapper<Movie>() {
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    public List<Movie> getMoviesByIds(Set<Integer> ids) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("ids", ids);
+        List<Movie> movies = namedParameterJdbcTemplate.query(GET_MOVIES_BY_DATE, parameters, new RowMapper<Movie>() {
             @Override
             public Movie mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Movie movie = new Movie();
@@ -64,10 +66,5 @@ public class ReservationRepository {
         });
     }
 
-
-    public static void main(String[] args) {
-        ReservationRepository rr = new ReservationRepository();
-        List<Movie> moviesByDate = rr.getMoviesByDate("05-13-2018");
-    }
 
 }
