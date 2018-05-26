@@ -14,6 +14,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="/">Strona Główna</a></li>
+            <li class="active"><a href="/add_movie">Dodaj film</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/account"><span class="glyphicon glyphicon-user"></span> <strong> ${USERNAME}</strong>
