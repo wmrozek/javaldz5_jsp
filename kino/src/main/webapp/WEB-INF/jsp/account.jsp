@@ -2,51 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Your file css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/WEB-INF/css/cinema_style.css" type="text/css"/>
-    <style>
-        * {
-            margin:0;
-            padding:0;
-        }
+    <%@ include file="head.jsp"%>
 
-
-        body {
-            background:#000000;
-            font-size:200%;
-            line-height:1em;
-            color:#858585;
-        }
-    </style>
-
-    <title>JAKAS NAZWA KINA</title>
 </head>
 <body>
-<!--Pasek nawigacyjny na gorze strony-->
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/WEB-INF/cinema_main.html"><span class="cinema_name">(super nazwa)</span></a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="${pageContext.request.contextPath}/WEB-INF/cinema_main.html">Strona Główna</a></li>
-            <!--<li><a href="repertuar.html">Repertuar</a></li>-->
-            <!--<li><a href="kontakt.html">Kontakt</a></li>-->
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="konto"><span class="glyphicon glyphicon-user"></span> <strong>${uzytkownik.login}</strong>
-            </a></li>
-        </ul>
-    </div>
-</nav>
-<!--________________________________________________________________-->
+    <c:choose>
+        <c:when test="${USERNAME eq null}">
+            <%@ include file="navbar_not_logged.jsp" %>
+        </c:when>
+        <c:otherwise>
+            <%@ include file="navbar_logged_user.jsp" %>
+        </c:otherwise>
+    </c:choose>
 
-
-<div class="container-fluid">
+<div class="container-fluid" id="acc">
     <div class="row content">
         <div class="col-sm-2 sidenav">
             <p><a href="#">Moje Rezerwacje</a></p>
@@ -141,7 +110,6 @@
 
         </div>
     </div>
-</div>
 
 </body>
 </html>

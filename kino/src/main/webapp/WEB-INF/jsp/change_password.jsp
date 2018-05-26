@@ -4,33 +4,20 @@
 <html lang="en">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
-    <meta charset="UTF-8">
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Your file css -->
-    <link rel="stylesheet" href="css/cinema_style.css"/>
+    <%@ include file="head.jsp"%>
 
     <title>Zmiana Hasła</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/index"><span class="cinema_name">(super nazwa)</span></a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Strona Główna</a></li>
-            <li><a href="repertuar.html">Repertuar</a></li>
-            <li><a href="kontakt.html">Kontakt</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Zarejestruj się</a></li>
-            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Logowanie</a></li>
-        </ul>
-    </div>
-</nav>
+<div id="extraLayer">
+<c:choose>
+    <c:when test="${USERNAME eq null}">
+        <%@ include file="navbar_not_logged.jsp" %>
+    </c:when>
+    <c:otherwise>
+        <%@ include file="navbar_logged_user.jsp" %>
+    </c:otherwise>
+</c:choose>
 
 <h1 align="center">Zmiana Hasła</h1>
 <c:if test="${errorMessage ne null}">
@@ -61,5 +48,6 @@
         <button id="changebutton" type="submit">Zmień hasło</button>
     </div>
 </form>
+</div>
 </body>
 </html>
