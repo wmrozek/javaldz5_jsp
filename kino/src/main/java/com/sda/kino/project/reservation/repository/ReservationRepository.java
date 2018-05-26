@@ -18,22 +18,17 @@ import java.util.Map;
 @Repository
 public class ReservationRepository {
     private static final String GET_MOVIES_BY_DATE =
-            "select m.*, array_agg(s.id) from movies m \n" +
-                    "join seances s on s.id_movie = m.id\n" +
-                    "where s.data_start = ?\n" +
-                    "group by m.id, m.title, m.category, m.time_duration, m.description, m.movie_cast, m.date_production";
+            "SELECT m.*, array_agg(s.id) FROM movies m JOIN seances s ON s.id_movie = m.id WHERE s.data_start = ? " +
+                    "GROUP BY m.id, m.title, m.category, m.time_duration, m.description, m.movie_cast, m.date_production";
 
-    private static final String GET_SEANCES_BY_DATE =
-            "select * from seances where data_start = ?";
+    private static final String GET_SEANCES_BY_DATE = "SELECT * FROM seances WHERE data_start = ?;";
 
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public List<Movie> getMoviesByDate(String date) {
-        List<Seance> seanceList = getSeancesByDate(date);
-        Map<Integer, List<Seance>> mapMoviesSeances = createMapMovieSeances(seanceList);
-
+        System.out.println(date);
         List<Movie> movies = jdbcTemplate.query(GET_MOVIES_BY_DATE, new String[]{date}, new RowMapper<Movie>() {
             @Override
             public Movie mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -42,21 +37,19 @@ public class ReservationRepository {
                 movie.setTitle(rs.getString("title"));
                 movie.setMovieGenre(MovieGenre.valueOf(rs.getString("category").toUpperCase()));
                 movie.setMovieDescription(rs.getString("description"));
-                movie.setListOfActors(rs.getString("movie_cast"));
+                movie.setActors(rs.getString("movie_cast"));
                 movie.setYearOfMovieProduction(Integer.toString(rs.getInt("date_production")));
-                movie.setListOfSeance(mapMoviesSeances.get(rs.getInt("id")));
-
                 return movie;
             }
         });
         return movies;
-
-
     }
 
 
-    private List<Seance> getSeancesByDate(String date) {
-        List<Seance> seanceList = jdbcTemplate.query(GET_SEANCES_BY_DATE, new String[] {date}, new RowMapper<Seance>() {
+    public List<Seance> getSeancesByDate(String date) {
+
+        System.out.println(date);
+        return jdbcTemplate.query(GET_SEANCES_BY_DATE, new String[]{date}, new RowMapper<Seance>() {
             @Override
             public Seance mapRow(ResultSet rs, int rowNum) throws SQLException {
 
@@ -66,28 +59,15 @@ public class ReservationRepository {
                 seance.setDataStart(rs.getString("data_start"));
                 seance.setDataStartTime(rs.getString("data_start_time"));
                 seance.setPrice(rs.getDouble("price"));
-
                 return seance;
             }
-
-
         });
-        return null;
     }
 
-    public Map<Integer, List<Seance>> createMapMovieSeances(List<Seance> seances){
-        Map<Integer, List<Seance>> mapMovieSeances = new HashMap<>();
-        for (Seance seance : seances){
-            if (mapMovieSeances.containsKey(seance.getMovieId())){
-                mapMovieSeances.get(seance.getMovieId()).add(seance);
-                mapMovieSeances.put(seance.getMovieId(), mapMovieSeances.get(seance.getMovieId()));
-            } else {
-                List<Seance> seanceList = new ArrayList<>();
-                seanceList.add(seance);
-                mapMovieSeances.put(seance.getMovieId(), seanceList);
 
-            }
-        }
-        return mapMovieSeances;
+    public static void main(String[] args) {
+        ReservationRepository rr = new ReservationRepository();
+        List<Movie> moviesByDate = rr.getMoviesByDate("05-13-2018");
     }
+
 }
